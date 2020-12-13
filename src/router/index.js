@@ -5,6 +5,7 @@ import homeRouter from "./module/home";
 import departRouter from "./module/depart";
 import goverRouter from "./module/gover";
 import businessRouter from "./module/business";
+import materialRouter from "./module/material";
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,7 @@ const routes = [
     ...departRouter,
     ...goverRouter,
     ...businessRouter,
+    ...materialRouter,
 
 ];
 
