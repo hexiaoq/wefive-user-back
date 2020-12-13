@@ -9,13 +9,12 @@
             <v-toolbar-title>业务管理列表</v-toolbar-title>
 
             <v-spacer></v-spacer>
-            <v-btn icon @click="addBusiness">
-                <v-icon>mdi-plus</v-icon>
-            </v-btn>
         </v-toolbar>
 
         <!-- 业务列表 -->
         <v-card class="px-5">
+            <v-btn outlined color="indigo" @click="addBusiness" large class="mt-3">添加新业务</v-btn>
+            <v-divider class="my-3"></v-divider>
             <v-data-iterator
                     :items="businesses"
                     :items-per-page.sync="itemsPerPage"
@@ -62,10 +61,10 @@
                                     <v-btn
                                             color="indigo"
                                             :id="item.bus_id"
-                                            @click="deleteBusiness"
-                                            outlined
+                                            @click="editMaterial"
+                                            text
                                     >
-                                        删除业务
+                                        业务详情
                                     </v-btn>
 
 
@@ -183,6 +182,8 @@
             },
 
             deleteBusiness(event) {
+                let r = confirm("确定要删除吗？");
+                if (!r) return;
                 let busId = event.currentTarget.id;
                 let deptName = this.$store.state.goverModule.goverInfo.dept_name;
                 businessService.deleteBusiness(busId, deptName).then((res) => {
@@ -196,6 +197,13 @@
                 }).catch((err) => {
                     alert(err);
                 })
+            },
+
+            editMaterial(event) {
+                // 携带业务id
+                let busId = event.currentTarget.id;
+                // 跳转材料页面
+                this.$router.push({ name: 'material', params: {'id': busId}});
             },
 
             nextPage () {

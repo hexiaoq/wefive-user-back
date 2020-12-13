@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container fluid >
         <v-row align="center">
             <v-col cols="12" sm="7">
                 <v-carousel
@@ -13,6 +13,7 @@
                         <v-sheet
                                 color="indigo"
                                 height="100%"
+                                style="background-image: url('https://i.picsum.photos/id/1075/1920/1080.jpg?hmac=XoHaZBtraAFA5A6u4sxS7Wg5mfE-F1RjIigrFXexwJY');"
                         >
                             <v-row
                                     class="fill-height"
@@ -20,7 +21,7 @@
                                     justify="center"
                             >
                                 <div class="display-3">
-                                    Slide
+                                    Wefive.government
                                 </div>
                             </v-row>
                         </v-sheet>
@@ -29,6 +30,7 @@
                         <v-sheet
                                 color="warning"
                                 height="100%"
+                                style="background-image: url('https://i.picsum.photos/id/193/1920/1080.jpg?hmac=BG_krGRTZ0G7BKRtciVSQRihKjRrzdZfWPczWZvfi7M');"
                         >
                             <v-row
                                     class="fill-height"
@@ -36,7 +38,7 @@
                                     justify="center"
                             >
                                 <div class="display-3">
-                                    Slide
+
                                 </div>
                             </v-row>
                         </v-sheet>

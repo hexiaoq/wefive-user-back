@@ -1,14 +1,14 @@
 <template>
     <v-container onload="updateGovernors()">
         <!-- 工具栏 -->
-        <v-toolbar dense color="indigo" dark min-width="600">
+        <v-toolbar dense color="indigo" dark>
             <v-spacer></v-spacer>
             <v-toolbar-title>政府部门人员列表</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-toolbar>
 
         <!-- 列表内容 -->
-        <v-card min-width="600">
+        <v-card>
             <v-card-title>
                 <v-btn text color="indigo" @click="showAddGoverDialog">添加工作人员</v-btn>
                 <v-btn text color="indigo" @click="showDeleteGoverDialog">删除工作人员</v-btn>
