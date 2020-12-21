@@ -9,6 +9,11 @@ const departRouter = [
         name: 'departAdd',
         component: () => import('../../views/department/departAdd.vue')
     },
+    {
+        path: '/departEdit/deptId=:id',
+        name: 'departEdit',
+        component: () => import('../../views/department/departEdit.vue')
+    },
 ];
 
 export default departRouter;

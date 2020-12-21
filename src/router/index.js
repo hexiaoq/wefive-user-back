@@ -6,6 +6,7 @@ import departRouter from "./module/depart";
 import goverRouter from "./module/gover";
 import businessRouter from "./module/business";
 import materialRouter from "./module/material";
+import processRouter from "./module/process";
 
 Vue.use(VueRouter);
 
@@ -16,19 +17,9 @@ const routes = [
         component: () => import('../views/init/Init.vue')
     },
     {
-      path: '/init',
-      name: 'init',
-      component: () => import('../views/init/Init.vue')
-    },
-    {
-        path: '/edit',
-        name: 'edit',
-        // 元信息
-        meta: {
-            // true 代表这个路由需要认证
-            auth: false,
-        },
-        component: () => import('../views/home/Gover1.vue')
+        path: '/init',
+        name: 'init',
+        component: () => import('../views/init/Init.vue')
     },
     {
         path: '/business',
@@ -56,6 +47,7 @@ const routes = [
     ...goverRouter,
     ...businessRouter,
     ...materialRouter,
+    ...processRouter,
 
 ];
 

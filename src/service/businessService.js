@@ -1,7 +1,11 @@
 import request from '../utils/request';
 
-const getAllBusiness = (deptName) => {
-    return request.get('business/'+ deptName +'/all');
+const getAllBusiness = (deptId) => {
+    return request.get('business/all/' + deptId);
+};
+
+const getAllBusinessByDeptId = (deptId) => {
+    return request.post('businesses/get', {deptId});
 };
 
 const addBusiness = (deptName, busName, description, requirement, cost) => {
@@ -27,4 +31,5 @@ export default {
     deleteBusiness,
     getBusinessById,
     updateBusiness,
+    getAllBusinessByDeptId,
 };

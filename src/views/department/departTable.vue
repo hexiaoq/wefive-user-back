@@ -36,20 +36,32 @@
                                 md="4"
                                 lg="3"
                         >
-                            <v-card>
-                                <v-list three-line>
-                                    <v-list-item>
-                                        <v-list-item-content>
-                                            <v-list-item-title>
-                                                <div v-text="item.dept_name"></div>
-                                            </v-list-item-title>
-                                            <v-list-item-subtitle>
-                                                <div v-text="item.location"></div>
-                                            </v-list-item-subtitle>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                </v-list>
+                            <v-card min-width="350">
+                                <div class="d-flex flex-no-wrap justify-space-between">
+                                    <div>
+                                        <v-list three-line>
+                                            <v-list-item>
+                                                <v-list-item-content>
+                                                    <v-list-item-title>
+                                                        <div v-text="item.dept_name"></div>
+                                                    </v-list-item-title>
+                                                    <v-list-item-subtitle>
+                                                        <div v-text="item.location"></div>
+                                                    </v-list-item-subtitle>
+                                                </v-list-item-content>
+                                            </v-list-item>
+                                        </v-list>
+                                    </div>
 
+                                    <v-avatar
+                                            class="ma-3"
+                                            size="100"
+                                            tile
+                                            v-if="item.picture"
+                                    >
+                                        <v-img :src="item.picture"></v-img>
+                                    </v-avatar>
+                                </div>
                                 <!-- Project Menu -->
                                 <v-card-actions>
                                     <v-btn
@@ -62,14 +74,29 @@
                                     <v-btn
                                             color="indigo"
                                             :id="item.dept_id"
+                                            @click="editDepartment"
+                                            outlined
+                                    >
+                                        编辑部门
+                                    </v-btn>
+                                    <v-btn
+                                            color="indigo"
+                                            :id="item.dept_id"
+                                            @click="editBusiness"
+                                            outlined
+                                    >
+                                        编辑业务
+                                    </v-btn>
+                                    <v-btn
+                                            color="indigo"
+                                            :id="item.dept_id"
                                             @click="deleteDepartment"
                                             outlined
                                     >
                                         删除部门
                                     </v-btn>
-
-
                                 </v-card-actions>
+
                                 <!-- Project Expansion -->
                                 <v-expand-transition>
                                     <div v-show="showDetail === index || showDetail === -2">
@@ -79,8 +106,6 @@
                                         </v-card-text>
                                     </div>
                                 </v-expand-transition>
-
-
                             </v-card>
                         </v-col>
                     </v-row>
@@ -152,6 +177,8 @@
                 description: "",
                 location: "",
                 work_time: "",
+                picture: "",
+                contact: "",
             }],
         }),
         mounted: function() {
@@ -167,6 +194,11 @@
             addDepartment() {
                 this.$router.push({ name: 'departAdd'});
             },
+            editBusiness(event) {
+                let deptId = event.currentTarget.id;
+                this.$router.push({ name: 'businessTable', params: {'deptId': deptId}});
+            },
+
             // 删除部门
             deleteDepartment(event) {
                 let r = confirm("确定要删除吗？");
@@ -198,6 +230,12 @@
                     return null;
                 });
             },
+
+            editDepartment(event) {
+                let deptId = event.currentTarget.id;
+                this.$router.push({ name: 'departEdit', params: { 'id' : deptId }});
+            },
+
             nextPage () {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1
             },

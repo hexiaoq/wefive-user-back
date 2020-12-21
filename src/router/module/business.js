@@ -1,6 +1,6 @@
 const businessRouter = [
     {
-        path: '/businessTable',
+        path: '/businessTable/deptId=:deptId',
         name: 'businessTable',
         component: () => import('../../views/business/BusinessTable.vue')
     },
