@@ -37,7 +37,7 @@
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>业务描述</v-list-item-title>
-                        <v-list-item-subtitle v-if="!this.businessEditing">{{this.business.description}}</v-list-item-subtitle>
+                        <v-card-text v-if="!this.businessEditing">{{this.business.description}}</v-card-text>
                         <v-textarea
                                 auto-grow
                                 rows="1"
@@ -172,6 +172,28 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
+                    <v-list-item-content>
+                        <v-list-item-title>材料图片</v-list-item-title>
+                        <v-avatar
+                                class="ma-3"
+                                size="125"
+                                tile
+                                v-if="!this.materialEditing && this.materials[this.selectedItem].photo_url"
+                        >
+                            <v-img :src="this.materials[this.selectedItem].photo_url"></v-img>
+                        </v-avatar>
+                        <v-textarea
+                                auto-grow
+                                rows="1"
+                                outlined
+                                v-if="this.materialEditing"
+                                :value="this.materials[this.selectedItem].photo_url"
+                                id="editPhotoUrl"
+                                autocomplete="off"
+                        ></v-textarea>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
                     <v-btn
                             v-if="!this.materialEditing"
                             color="indigo"
@@ -190,19 +212,19 @@
                     </v-btn>
                     <v-spacer></v-spacer>
                     <v-btn
+                            color="indigo"
+                            dark
+                            @click="closeMaterialDialog"
+                    >
+                        关闭
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn
                             text
                             color="indigo"
                             @click="deleteMaterial"
                     >
                         删除
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                            color="indigo"
-                            text
-                            @click="detailDialog = false"
-                    >
-                        关闭
                     </v-btn>
                 </v-list-item>
 
@@ -419,6 +441,9 @@
                 if (document.getElementById("editDescription").value) {
                     material.description = document.getElementById("editDescription").value;
                 }
+                if (document.getElementById("editPhotoUrl").value) {
+                    material.photo_url = document.getElementById("editPhotoUrl").value;
+                }
                 let materialId = material.material_id.toString();
                 let busId = material.bus_id.toString();
                 let materialName = material.material_name;
@@ -467,6 +492,11 @@
 
             customFilter (item, queryText) {
                 return item.indexOf(queryText) > -1
+            },
+
+            closeMaterialDialog() {
+                this.selectedItem = -1;
+                this.detailDialog = false;
             },
         },
 

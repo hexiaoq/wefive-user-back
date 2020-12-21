@@ -2,13 +2,17 @@
     <v-container fluid onload="updateBusinessTable()">
         <!-- 工具栏 -->
         <v-toolbar dense color="indigo" dark>
-            <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
+            <v-btn icon @click="back">
+                <v-icon>mdi-reply</v-icon>
             </v-btn>
+
 
             <v-toolbar-title>业务管理列表</v-toolbar-title>
 
             <v-spacer></v-spacer>
+            <v-btn icon>
+                <v-icon>mdi-magnify</v-icon>
+            </v-btn>
         </v-toolbar>
 
         <!-- 业务列表 -->
@@ -45,6 +49,9 @@
                                             <v-list-item-subtitle>
                                                 <div v-text="item.requirement"></div>
                                             </v-list-item-subtitle>
+                                            <v-list-item-subtitle>
+                                                <div v-if="item.cost" v-text="'所需费用￥'+item.cost"></div>
+                                            </v-list-item-subtitle>
                                         </v-list-item-content>
                                     </v-list-item>
                                 </v-list>
@@ -61,6 +68,14 @@
                                     <v-btn
                                             color="indigo"
                                             :id="item.bus_id"
+                                            @click="businessProcess"
+                                            text
+                                    >
+                                        业务流程
+                                    </v-btn>
+                                    <v-btn
+                                            color="indigo"
+                                            :id="item.bus_id"
                                             @click="editMaterial"
                                             text
                                     >
@@ -74,7 +89,6 @@
                                     <div v-show="showDetail === index || showDetail === -2">
                                         <v-divider></v-divider>
                                         <v-card-text>
-                                            <div v-if="item.cost" v-text="'所需费用￥'+item.cost"></div>
                                             <div v-text="item.description"></div>
                                         </v-card-text>
                                     </div>
@@ -163,8 +177,11 @@
         },
         methods: {
             updateBusinessTable() {
-                let deptName = this.$store.state.goverModule.goverInfo.dept_name;
-                businessService.getAllBusiness(deptName).then((res) => {
+                let deptId = this.$store.state.goverModule.goverInfo.dept_id;
+                if (this.$route.params.deptId) {
+                    deptId = this.$route.params.deptId;
+                }
+                businessService.getAllBusiness(deptId).then((res) => {
                     if (res.data.code !== 200) {
                         alert(res.data.msg);
                         return;
@@ -206,12 +223,22 @@
                 this.$router.push({ name: 'material', params: {'id': busId}});
             },
 
+            businessProcess(event) {
+                let busId = event.currentTarget.id;
+                // 跳转材料页面
+                this.$router.push({ name: 'process', params: {'busId': busId}});
+            },
+
             nextPage () {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1
             },
             formerPage () {
                 if (this.page - 1 >= 1) this.page -= 1
             },
+
+            back() {
+                this.$router.go(-1);
+            }
         },
     }
 </script>
