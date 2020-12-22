@@ -31,7 +31,7 @@
         </v-toolbar>
 
         <!-- 流程内容 -->
-        <v-row v-if="showCards">
+        <v-row v-if="showCards && processes">
             <v-col
                     cols="12"
                     v-for="(item, index) in processes"
@@ -100,8 +100,15 @@
                             text
                             color="indigo"
                             :id="item.process_id"
-                            @click="showAddMaterialForProcessDialog"
-                    >添加业务材料</v-btn>
+                            @click="toAddMaterial"
+                    >添加新的流程材料</v-btn>
+
+                    <v-btn
+                            text
+                            color="indigo"
+                            :id="item.process_id"
+                            @click="showAddOldMaterial"
+                    >添加已有流程材料</v-btn>
 
                     <!-- 材料列表 -->
                     <v-list rounded>
@@ -186,7 +193,7 @@
             </v-card>
         </v-dialog>
 
-        <!-- 为流程添加材料对话框 -->
+         <!--为流程添加材料对话框-->
         <v-dialog
                 v-model="addMaterialForProcessDialog"
                 persistent
@@ -261,7 +268,7 @@
         <!-- 某个材料详情 -->
         <v-dialog
                 persistent
-                v-if="processes[currentProcessIndex].materials && selectedItem >= 0"
+                v-if="processes && processes[currentProcessIndex].materials && selectedItem >= 0"
                 v-model="materialDetailDialog"
                 width="500"
         >
@@ -408,8 +415,8 @@
                 console.log(processId);
             },
 
-            // 为流程添加材料
-            showAddMaterialForProcessDialog(event) {
+            // 为流程添加已有材料
+            showAddOldMaterial(event) {
                 this.currentProcessId = event.currentTarget.id;
                 this.addMaterialForProcessDialog = true;
                 let busId = this.$route.params.busId;
@@ -423,6 +430,13 @@
                 }).catch((err) => {
                     alert(err);
                 });
+            },
+
+            // 为流程添加新的图片
+            toAddMaterial(event) {
+                let busId = this.$route.params.busId;
+                let processId = event.currentTarget.id;
+                this.$router.push({ name: 'addMaterial', params: {'busId': busId, 'processId': processId}});
             },
 
             // 为流程添加材料
@@ -498,6 +512,8 @@
             },
 
             deleteProcessMaterial(event) {
+                let r = confirm("确定要删除吗？");
+                if (!r) return;
                 let materialId = event.currentTarget.id;
                 let processId = this.currentProcessId;
                 processService.deleteProcessMaterial(processId.toString(), materialId.toString()).then((res) => {

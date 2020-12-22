@@ -1,19 +1,19 @@
 import request from '../utils/request';
 
-const getAllBusiness = (deptId) => {
-    return request.get('business/all/' + deptId);
+const getAllBusinesses = () => {
+    return request.get('business/all');
 };
 
 const getAllBusinessByDeptId = (deptId) => {
     return request.post('businesses/get', {deptId});
 };
 
-const addBusiness = (deptName, busName, description, requirement, cost) => {
-    return request.post('business/'+ deptName + '/add', {busName, description, requirement, cost});
+const addBusiness = (deptId, busName, description, requirement, cost) => {
+    return request.post('business/add/' + deptId, {deptId, busName, description, requirement, cost});
 };
 
-const deleteBusiness = (busId, deptName) => {
-    return request.post('business/'+ deptName + '/delete', {busId});
+const deleteBusiness = (busId) => {
+    return request.post('business/delete/' + busId, {busId});
 };
 
 const getBusinessById = (busId) => {
@@ -24,12 +24,18 @@ const updateBusiness = (busId, deptId, busName, description, requirement, cost) 
     return request.post('bus/update', {busId, deptId, busName, description, requirement, cost});
 };
 
+const addBusFromTemplate = (busName, deptId) => {
+    return request.post('bus/addTemplate', {busName, deptId});
+};
+
+
 
 export default {
-    getAllBusiness,
+    getAllBusinesses,
     addBusiness,
     deleteBusiness,
     getBusinessById,
     updateBusiness,
     getAllBusinessByDeptId,
+    addBusFromTemplate,
 };

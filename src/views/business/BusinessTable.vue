@@ -17,7 +17,8 @@
 
         <!-- 业务列表 -->
         <v-card class="px-5">
-            <v-btn outlined color="indigo" @click="addBusiness" large class="mt-3">添加新业务</v-btn>
+            <v-btn outlined color="indigo" @click="addBusiness" large class="ma-3">添加新业务</v-btn>
+            <v-btn outlined color="indigo" @click="addBusFromTemplate" large class="ma-3">从模板中添加新业务</v-btn>
             <v-divider class="my-3"></v-divider>
             <v-data-iterator
                     :items="businesses"
@@ -177,11 +178,9 @@
         },
         methods: {
             updateBusinessTable() {
-                let deptId = this.$store.state.goverModule.goverInfo.dept_id;
-                if (this.$route.params.deptId) {
-                    deptId = this.$route.params.deptId;
-                }
-                businessService.getAllBusiness(deptId).then((res) => {
+                //let deptId = this.$store.state.goverModule.goverInfo.dept_id;
+                let deptId = this.$route.params.deptId;
+                businessService.getAllBusinessByDeptId(deptId).then((res) => {
                     if (res.data.code !== 200) {
                         alert(res.data.msg);
                         return;
@@ -195,15 +194,21 @@
             },
 
             addBusiness() {
-                this.$router.push({ name: 'businessAdd'});
+                let deptId = this.$route.params.deptId;
+                this.$router.push({ name: 'businessAdd', params: {'deptId': deptId}});
+            },
+
+            addBusFromTemplate() {
+                let deptId = this.$route.params.deptId;
+                this.$router.push({ name: 'busAddTemplate', params: {'deptId': deptId}});
             },
 
             deleteBusiness(event) {
                 let r = confirm("确定要删除吗？");
                 if (!r) return;
                 let busId = event.currentTarget.id;
-                let deptName = this.$store.state.goverModule.goverInfo.dept_name;
-                businessService.deleteBusiness(busId, deptName).then((res) => {
+                //let deptName = this.$store.state.goverModule.goverInfo.dept_name;
+                businessService.deleteBusiness(busId).then((res) => {
                     if (res.data.code !== 200) {
                         alert(res.data.msg);
                     } else {
@@ -220,7 +225,7 @@
                 // 携带业务id
                 let busId = event.currentTarget.id;
                 // 跳转材料页面
-                this.$router.push({ name: 'material', params: {'id': busId}});
+                this.$router.push({ name: 'material', params: {'busId': busId}});
             },
 
             businessProcess(event) {

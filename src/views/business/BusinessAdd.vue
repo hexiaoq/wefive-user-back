@@ -109,12 +109,14 @@
                     this.notCompleted = true;
                     return;
                 }
-                let deptName = this.$store.state.goverModule.goverInfo.dept_name;
+                //let deptId = this.$store.state.goverModule.goverInfo.dept_id;
+                let deptId = this.$route.params.deptId;
+                //let deptName = this.$store.state.goverModule.goverInfo.dept_name;
                 let busName = document.getElementById("busName").value;
                 let requirement = document.getElementById("requirement").value;
                 let description = document.getElementById("description").value;
                 let cost = document.getElementById("cost").value;
-                businessService.addBusiness(deptName, busName, description, requirement, cost).then((res) => {
+                businessService.addBusiness(deptId, busName, description, requirement, cost).then((res) => {
                     if (res.data.code === 200) {
                         alert("添加业务成功！");
                         this.toLastPage();

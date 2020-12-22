@@ -79,7 +79,7 @@
                         ></v-textarea>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item dense>
                     <v-btn
                             v-if="!this.businessEditing"
                             color="indigo"
@@ -99,12 +99,23 @@
                         保存
                     </v-btn>
                 </v-list-item>
+                <v-list-item dense>
+                    <v-btn
+                            v-if="!this.businessEditing"
+                            color="red"
+                            outlined
+                            @click="deleteBusiness"
+                            width="100%"
+                    >
+                        删除
+                    </v-btn>
+                </v-list-item>
 
             </v-list>
 
             <v-divider class="mb-6"></v-divider>
 
-            <v-btn text color="indigo" @click="showAddMaterialDialog">添加业务材料</v-btn>
+            <v-btn text color="indigo" @click="toAddMaterial">添加业务材料</v-btn>
 
             <!-- 材料列表 -->
             <v-list rounded>
@@ -231,70 +242,6 @@
             </v-list>
         </v-dialog>
 
-        <!-- 添加材料对话框 -->
-        <v-dialog
-                v-model="addMaterialDialog"
-                persistent
-                max-width="80%"
-        >
-            <v-card>
-                <v-card-text>
-                    <v-subheader>为业务添加材料</v-subheader>
-                    <v-form v-model="valid">
-                        <v-text-field
-                                label="材料名称"
-                                value=""
-                                :rules="materialNameRules"
-                                :counter="20"
-                                class="my-3"
-                                id="materialName"
-                                autocomplete="off"
-                        ></v-text-field>
-                        <v-textarea
-                                auto-grow
-                                outlined
-                                rows="2"
-                                label="材料描述"
-                                value=""
-                                :rules="descriptionRules"
-                                :counter="500"
-                                class="my-3"
-                                id="materialDesc"
-                                autocomplete="off"
-                        ></v-textarea>
-                        <v-text-field
-                                label="上传图片文件"
-                                value=""
-                                class="my-3"
-                                id="photoUrl"
-                                autocomplete="off"
-                        ></v-text-field>
-                    </v-form>
-                    <v-row>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                                color="indigo"
-                                outlined
-                                class="mx-3"
-                                @click="addMaterialDialog = false"
-                        >
-                            取消
-                        </v-btn>
-                        <v-btn
-                                color="indigo"
-                                outlined
-                                class="mx-3"
-                                @click="addMaterial"
-                        >
-                            添加
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                    </v-row>
-
-                </v-card-text>
-            </v-card>
-        </v-dialog>
-
         <v-snackbar
                 v-model="notCompleted"
                 :timeout="2000"
@@ -340,13 +287,6 @@
             }],
             valid: false,
             notCompleted: false,
-            descriptionRules: [
-                v => v.length <= 500 || '描述必须小于500个字符',
-            ],
-            materialNameRules: [
-                v => !!v || '材料名字不能为空',
-                v => v.length < 20 || '部门名字不能超过20字符',
-            ],
         }),
         mounted: function() {
             this.loadBusinessDetail();
@@ -354,7 +294,7 @@
         methods: {
             // 更新业务详情
             loadBusinessDetail() {
-                let busId = this.$route.params.id;
+                let busId = this.$route.params.busId;
                 // 获取业务
                 businessService.getBusinessById(busId).then((res) => {
                     if (res.data.code !== 200) {
@@ -474,15 +414,30 @@
                 })
             },
 
+            deleteBusiness() {
+                let r = confirm("确定要删除吗？");
+                if (!r) return;
+                let busId = this.$route.params.busId;
+                businessService.deleteBusiness(busId).then((res) => {
+                    if (res.data.code !== 200) {
+                        alert(res.data.msg);
+                        return;
+                    }
+                    alert(res.data.msg);
+                    this.$router.go(-1);
+                })
+            },
+
             // 返回上一级
             lastPage() {
                 this.$router.go(-1);
             },
 
             // 显示添加对话框
-            showAddMaterialDialog() {
-                this.addMaterialDialog = true;
-                // 获取所有部门
+            toAddMaterial() {
+                //this.addMaterialDialog = true;
+                let busId = this.$route.params.busId;
+                this.$router.push({ name: 'addMaterial', params: {'busId': busId}});
             },
 
             // 显示材料详情
