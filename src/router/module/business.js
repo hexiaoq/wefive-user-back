@@ -5,9 +5,14 @@ const businessRouter = [
         component: () => import('../../views/business/BusinessTable.vue')
     },
     {
-        path: '/businessAdd',
+        path: '/businessAdd/deptId=:deptId',
         name: 'businessAdd',
         component: () => import('../../views/business/BusinessAdd.vue')
+    },
+    {
+        path: '/busAddTemplate/deptId=:deptId',
+        name: 'busAddTemplate',
+        component: () => import('../../views/business/BusAddTemplate.vue')
     },
 ];
 

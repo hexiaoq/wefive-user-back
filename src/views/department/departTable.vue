@@ -32,36 +32,27 @@
                                 v-for="(item, index) in props.items"
                                 :key="index"
                                 cols="12"
-                                sm="6"
-                                md="4"
-                                lg="3"
+                                sm="12"
                         >
-                            <v-card min-width="350">
-                                <div class="d-flex flex-no-wrap justify-space-between">
-                                    <div>
-                                        <v-list three-line>
-                                            <v-list-item>
-                                                <v-list-item-content>
-                                                    <v-list-item-title>
-                                                        <div v-text="item.dept_name"></div>
-                                                    </v-list-item-title>
-                                                    <v-list-item-subtitle>
-                                                        <div v-text="item.location"></div>
-                                                    </v-list-item-subtitle>
-                                                </v-list-item-content>
-                                            </v-list-item>
-                                        </v-list>
-                                    </div>
+                            <v-card>
+                                <v-card-text>
+                                    <div class="d-flex flex-no-wrap justify-space-between" >
+                                        <div>
+                                            <v-card-title v-text="item.dept_name"></v-card-title>
+                                            <v-card-subtitle v-text="item.location"></v-card-subtitle>
+                                        </div>
 
-                                    <v-avatar
-                                            class="ma-3"
-                                            size="100"
-                                            tile
-                                            v-if="item.picture"
-                                    >
-                                        <v-img :src="item.picture"></v-img>
-                                    </v-avatar>
-                                </div>
+                                        <v-avatar
+                                                class="ma-3"
+                                                size="100"
+                                                tile
+                                                v-if="item.picture"
+                                        >
+                                            <v-img :src="item.picture"></v-img>
+                                        </v-avatar>
+                                    </div>
+                                </v-card-text>
+
                                 <!-- Project Menu -->
                                 <v-card-actions>
                                     <v-btn

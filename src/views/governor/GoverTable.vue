@@ -57,28 +57,6 @@
                                 :rules="departRules"
                         >
                         </v-autocomplete>
-                        <!--<v-autocomplete
-                                class="my-3"
-
-                                :items="departments"
-                                :filter="customFilter"
-                                color="white"
-                                value=""
-                                item-text="name"
-                                label="所属政府部门"
-                                id="department"
-                                :rules="departRules"
-                        ><template v-slot:item="data">
-                            <template v-if="typeof data.item !== 'object'">
-                                <v-list-item-content v-text="data.item"></v-list-item-content>
-                            </template>
-                            <template v-else>
-                                <v-list-item-content>
-                                    <v-list-item-title v-html="data.item.dept_name"></v-list-item-title>
-                                </v-list-item-content>
-                            </template>
-                        </template>
-                        </v-autocomplete>-->
                     </v-form>
                     <v-row>
                         <v-spacer></v-spacer>
