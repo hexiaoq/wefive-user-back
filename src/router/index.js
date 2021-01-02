@@ -32,13 +32,8 @@ const routes = [
         component: () => import('../views/business/Business.vue')
     },
     {
-        path: '/comment',
+        path: '/comment/deptId=:deptId',
         name: 'comment',
-        // 元信息
-        meta: {
-            // true 代表这个路由需要认证
-            auth: false,
-        },
         component: () => import('../views/comment/Comment.vue')
     },
     ...loginRouter,

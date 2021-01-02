@@ -2,7 +2,13 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="10" sm="4">
-                <v-card width="100%" height="200" class="my-8 text-center" color="indigo">
+                <v-card width="100%" height="200" class="my-8 text-center" color="indigo" dark>
+                    <v-card-title>
+
+                    </v-card-title>
+                    <div class="text-center headline mt-11">
+                        政府工作人员登录入口
+                    </div>
                     <!--<div class="text&#45;&#45;white" style="font-family: 华文行楷,serif;">
                         登录
                     </div>
@@ -97,9 +103,9 @@
                         let token = "abc";
                         this.$store.dispatch('goverModule/storeGoverInfo', {governor, token});
                         // 登录成功跳转主页面
-                        const deptName = governor.dept_name;
+                        const deptId = governor.dept_id;
                         // 携带部门参数
-                        this.$router.push({ name: 'businessTable', params: {'name': deptName}});
+                        this.$router.push({ name: 'businessTable', params: {'deptId': deptId}});
                     } else {
                         alert("登录失败！" + res.data.msg);
                     }

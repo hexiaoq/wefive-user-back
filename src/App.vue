@@ -174,10 +174,13 @@ export default {
   },
   methods: {
     toBusiness() {
-      this.$router.push({ name: 'businessTable' });
+      let deptId = this.$store.state.goverModule.goverInfo.dept_id;
+      // 携带部门参数
+      this.$router.push({ name: 'businessTable', params: {'deptId': deptId}});
     },
     toComment() {
-      this.$router.push({ name: 'comment' });
+      let deptId = this.$store.state.goverModule.goverInfo.dept_id;
+      this.$router.push({ name: 'comment' , params: {'busId' : deptId}});
     },
     toDepartment() {
       this.$router.push({ name: 'departTable' });

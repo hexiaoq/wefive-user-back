@@ -40,7 +40,7 @@
                                 md="4"
                                 lg="3"
                         >
-                            <v-card>
+                            <v-card min-height="170">
                                 <v-list three-line>
                                     <v-list-item>
                                         <v-list-item-content>
@@ -180,7 +180,7 @@
             updateBusinessTable() {
                 //let deptId = this.$store.state.goverModule.goverInfo.dept_id;
                 let deptId = this.$route.params.deptId;
-                businessService.getAllBusinessByDeptId(deptId).then((res) => {
+                businessService.getAllBusinessByDeptId(deptId.toString()).then((res) => {
                     if (res.data.code !== 200) {
                         alert(res.data.msg);
                         return;

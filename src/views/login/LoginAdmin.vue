@@ -2,13 +2,13 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="10" sm="4">
-                <v-card width="100%" height="200" class="my-8 text-center" color="indigo">
-                    <!--<div class="text&#45;&#45;white" style="font-family: 华文行楷,serif;">
-                        登录
+                <v-card width="100%" height="200" class="my-8 text-center" dark color="indigo">
+                    <v-card-title>
+
+                    </v-card-title>
+                    <div class="text-center headline mt-11">
+                        后台管理员登录入口
                     </div>
-                    <v-card-title class="white&#45;&#45;text align-center">
-                        wefive
-                    </v-card-title>-->
                 </v-card>
                 <v-form v-model="valid">
                     <v-text-field
