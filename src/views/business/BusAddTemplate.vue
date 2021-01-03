@@ -94,7 +94,7 @@
                 }
                 let deptId = this.$route.params.deptId;
                 let busName = document.getElementById("business").value;
-                businessService.addBusFromTemplate(busName, deptId).then((res) => {
+                businessService.addBusFromTemplate(busName, deptId.toString()).then((res) => {
                     if (res.data.code !== 200) {
                         alert(res.data.msg);
                         return null;

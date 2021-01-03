@@ -327,6 +327,18 @@
 
             </v-list>
         </v-dialog>
+        <v-snackbar
+                v-model="success"
+                :timeout="1000"
+                outlined
+                color="success"
+                centered
+                top
+        ><v-icon color="success">
+            mdi-checkbox-marked-circle
+        </v-icon>
+            添加成功！
+        </v-snackbar>
 
         <v-snackbar
                 v-model="notCompleted"
@@ -350,6 +362,7 @@
             return {
                 showCards: false,
                 notCompleted: false,
+                success: false,
                 valid: false,
                 selectedItem: -1,
                 isEditing: -1,
@@ -486,13 +499,17 @@
                     if (res.data.code !== 200) {
                         alert(res.data.msg);
                     } else {
-                        alert("流程添加成功！");
-                        this.addProcessDialog = false;
-                        location.reload();
+                        this.success = true;
+                        setTimeout(this.reloadPage, 1000);
+
                     }
                 }).catch((err) => {
                     alert(err);
                 });
+            },
+            reloadPage() {
+                this.addProcessDialog = false;
+                location.reload();
             },
 
             deleteProcess() {
