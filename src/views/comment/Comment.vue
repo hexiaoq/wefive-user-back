@@ -27,35 +27,30 @@
                                     outlined
                                     :id="'reply' + item.comment_id"
                                     label="回复"
-                                    value=""
+                                    :value="item.reply"
                             ></v-textarea>
                             <v-row>
+                                <v-spacer></v-spacer>
                                 <v-btn
                                         class="ma-2"
                                         outlined
-                                        width="20%"
+                                        width="40%"
                                         color="indigo"
                                 >
                                     忽略
                                 </v-btn>
-                                <v-btn
-                                        class="ma-2"
-                                        min-width="30%"
-                                        outlined
-                                        color="indigo"
-                                >
-                                    待处理
-                                </v-btn>
+                                <v-spacer></v-spacer>
                                 <v-btn
                                         :id="item.comment_id"
                                         class="ma-2"
                                         outlined
-                                        min-width="20%"
+                                        width="40%"
                                         color="indigo"
                                         @click="feedBack"
                                 >
                                     反馈
                                 </v-btn>
+                                <v-spacer></v-spacer>
                             </v-row>
                         </v-col>
 
@@ -124,7 +119,7 @@
                 commentService.feedBack(commentId, reply).then((res) => {
                     if (res.data.code === 200) {
                         this.success = true;
-                        setTimeout(this.feedBackSuccess, 2000);
+                        setTimeout(this.reloadPage, 2000);
                     } else {
                         alert(res.data.msg);
                     }
@@ -133,7 +128,7 @@
                 })
             },
 
-            feedBackSuccess() {
+            reloadPage() {
                 location.reload();
             },
         },
